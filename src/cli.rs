@@ -1,3 +1,6 @@
+use std::io;
+use std::io::prelude::*;
+
 #[derive(Debug)]
 pub enum Command {
     Show,
@@ -13,6 +16,22 @@ impl From<String> for Command {
             "add" => Command::AddPair,
             "delete-all" => Command::DeleteAll,
             _ => Command::None,
+        }
+    }
+}
+
+impl Command {
+    pub fn show_valid_commands() {
+        let valid_commands = vec![
+            String::from("show"),
+            String::from("add"),
+            String::from("delete-all"),
+        ];
+
+        println!("Valid commands:");
+
+        for command in valid_commands {
+            println!("- {}", command);
         }
     }
 }
@@ -35,4 +54,21 @@ pub fn read_command() -> Command {
     let command: Command = String::from(command).into();
 
     command
+}
+
+pub fn collect_data_from_cli() -> Vec<String> {
+    let mut vec: Vec<String> = Vec::new();
+
+    let stdin = io::stdin();
+    println!("Enter a list of words, EN-RU. End with Ctrl-D.");
+
+    for line in stdin.lock().lines() {
+        let line = line.unwrap();
+
+        if let Ok(line_string) = line.trim().parse() {
+            vec.push(line_string);
+        }
+    }
+
+    vec
 }

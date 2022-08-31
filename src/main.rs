@@ -10,6 +10,7 @@
 pub mod cli;
 pub mod file_manager;
 pub mod json_manager;
+pub mod parser;
 pub mod root_controller;
 
 use file_manager::FileManager;
