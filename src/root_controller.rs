@@ -1,4 +1,6 @@
 use serde::{Deserialize, Serialize};
+use std::process;
+use uuid::Uuid;
 
 use crate::cli::cli;
 use crate::json_manager::json_manager;
@@ -8,9 +10,9 @@ use crate::file_manager::FileManager;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WordPair {
-    eng: String,
-    ru: String,
-    id: u16,
+    pub eng: String,
+    pub ru: String,
+    pub id: Uuid,
 }
 
 pub type WordPairs = Vec<WordPair>;
@@ -50,7 +52,7 @@ impl<'a> RootController<'a> {
 
     pub fn handle_command(&self) {
         use cli::{collect_data_from_cli, read_command, Command};
-        use parser::parse_word_strings;
+        use parser::parse_raw_strings;
 
         let command = read_command();
         let file_data = self.get_file_data();
@@ -64,35 +66,24 @@ impl<'a> RootController<'a> {
                 None => println!("No data yet"),
             },
             Command::AddPair => {
-                // let raw_word_strings = collect_data_from_cli();
-                let raw_word_strings = vec![
-                    "James-Frames".to_string(),
-                    "Ricard-Johnson".to_string(),
-                    "Tom-Williams".to_string(),
-                ];
+                let raw_word_strings = collect_data_from_cli();
+                let parsed_data = parse_raw_strings(raw_word_strings);
 
-                let parsed_data = parse_word_strings(raw_word_strings);
-
-                // println!("{:#?}", raw_word_strings);
+                if let Err(parsing_err) = parsed_data {
+                    println!("{}", parsing_err);
+                    process::exit(1);
+                }
 
                 match file_data {
                     Some(mut word_pairs) => {
-                        let new_pair = WordPair {
-                            eng: "Next one".to_string(),
-                            ru: "Dwons".to_string(),
-                            id: 1,
-                        };
-                        word_pairs.push(new_pair);
+                        // TODO
+
                         // self.serialize_and_write_data(word_pairs);
                     }
                     None => {
                         let mut word_pairs: WordPairs = vec![];
-                        let new_pair = WordPair {
-                            eng: "Total new".to_string(),
-                            ru: "Zero 01".to_string(),
-                            id: 0,
-                        };
-                        word_pairs.push(new_pair);
+                        // TODO
+
                         // self.serialize_and_write_data(word_pairs);
                     }
                 }

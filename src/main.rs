@@ -14,7 +14,6 @@ pub mod parser;
 pub mod root_controller;
 
 use file_manager::FileManager;
-use json_manager::JsonManager;
 use root_controller::RootController;
 
 /* --- --- --- --- --- --- --- --- --- --- --- ---  */
@@ -24,9 +23,8 @@ pub type StdResult<T> = std::result::Result<T, Error>;
 
 fn main() {
     let file_manager = FileManager::new("./words.json");
-    let json_manager = JsonManager::new();
 
-    let root_controller = RootController::new(&file_manager, &json_manager);
+    let root_controller = RootController::new(&file_manager);
 
     root_controller.handle_command();
 }

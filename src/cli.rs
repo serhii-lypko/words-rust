@@ -63,6 +63,8 @@ pub mod cli {
             let line = line.unwrap();
 
             if let Ok(line_string) = line.trim().parse() {
+                // TODO: cli-reading level validation?
+
                 vec.push(line_string);
             }
         }
