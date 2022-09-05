@@ -1,13 +1,5 @@
-/*
-    1. Read and write WordPair to json file
-    2. Print pairs with formatting
-    3. Shuffle pairs (random order)
-    4. Print only eng or only ru side (in randmon order)
-    5. Print a mix of eng-ru half-blind records (in randmon order)
-    6. Delete all pairs or particular (by id)
-*/
-
 pub mod cli;
+pub mod data_display_manager;
 pub mod file_manager;
 pub mod json_manager;
 pub mod parser;
@@ -15,8 +7,6 @@ pub mod root_controller;
 
 use file_manager::FileManager;
 use root_controller::RootController;
-
-/* --- --- --- --- --- --- --- --- --- --- --- ---  */
 
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type StdResult<T> = std::result::Result<T, Error>;

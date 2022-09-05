@@ -5,6 +5,7 @@ pub mod cli {
     #[derive(Debug)]
     pub enum Command {
         Show,
+        Exam,
         AddPair,
         DeleteAll,
         None,
@@ -14,6 +15,7 @@ pub mod cli {
         fn from(command_string: String) -> Self {
             match command_string.as_str() {
                 "show" => Command::Show,
+                "exam" => Command::Exam,
                 "add" => Command::AddPair,
                 "delete-all" => Command::DeleteAll,
                 _ => Command::None,
@@ -25,6 +27,7 @@ pub mod cli {
         pub fn show_valid_commands() {
             let valid_commands = vec![
                 String::from("show"),
+                String::from("exam"),
                 String::from("add"),
                 String::from("delete-all"),
             ];

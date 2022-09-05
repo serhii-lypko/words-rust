@@ -17,21 +17,21 @@ impl<'a> FileManager<'a> {
         Path::new(self.file_path).exists()
     }
 
-    fn create_file(&self) -> StdResult<File> {
-        let file = File::create(self.file_path)?;
-        Ok(file)
-    }
-
-    fn delete_file(&self) -> StdResult<()> {
-        remove_file(self.file_path)?;
-        Ok(())
-    }
-
     fn read_to_string(&self, file: &mut File) -> StdResult<String> {
         let mut file_string = String::new();
         file.read_to_string(&mut file_string)?;
 
         Ok(file_string)
+    }
+
+    fn create_file(&self) -> StdResult<File> {
+        let file = File::create(self.file_path)?;
+        Ok(file)
+    }
+
+    pub fn delete_file(&self) -> StdResult<()> {
+        remove_file(self.file_path)?;
+        Ok(())
     }
 
     pub fn get_file_string(&self) -> Option<String> {
