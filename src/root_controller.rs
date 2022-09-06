@@ -9,7 +9,7 @@ use crate::parser::parser::parse_raw_strings;
 
 use crate::file_manager::FileManager;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct WordPair {
     pub eng: String,
     pub ru: String,
@@ -84,7 +84,7 @@ impl<'a> RootController<'a> {
         match command {
             Command::Show => show_all_pairs(&file_data),
             Command::Exam => exam(&file_data),
-            Command::AddPair => self.handle_add_command(file_data),
+            Command::Add => self.handle_add_command(file_data),
             Command::DeleteAll => self.handle_delete_command(),
             _ => {
                 println!("Did not get any valid command.");

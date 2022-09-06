@@ -6,7 +6,7 @@ pub mod cli {
     pub enum Command {
         Show,
         Exam,
-        AddPair,
+        Add,
         DeleteAll,
         None,
     }
@@ -16,7 +16,7 @@ pub mod cli {
             match command_string.as_str() {
                 "show" => Command::Show,
                 "exam" => Command::Exam,
-                "add" => Command::AddPair,
+                "add" => Command::Add,
                 "delete-all" => Command::DeleteAll,
                 _ => Command::None,
             }
