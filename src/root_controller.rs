@@ -3,7 +3,7 @@ use std::process;
 use uuid::Uuid;
 
 use crate::cli::cli::{collect_data_from_cli, read_command, Command};
-use crate::data_display_manager::data_display_manager::{exam, show_all_pairs};
+use crate::data_display_manager::data_display_manager::{exam, show_all};
 use crate::json_manager::json_manager::{deserialize, serialize};
 use crate::parser::parser::parse_raw_strings;
 
@@ -82,7 +82,7 @@ impl<'a> RootController<'a> {
         let file_data = self.get_file_data();
 
         match command {
-            Command::Show => show_all_pairs(&file_data),
+            Command::Show => show_all(&file_data),
             Command::Exam => exam(&file_data),
             Command::Add => self.handle_add_command(file_data),
             Command::DeleteAll => self.handle_delete_command(),

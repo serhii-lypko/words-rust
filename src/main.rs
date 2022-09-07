@@ -12,6 +12,7 @@ pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type StdResult<T> = std::result::Result<T, Error>;
 
 fn main() {
+    // TODO: better use String insted of str to reduce complexity with lifetimes?
     let file_manager = FileManager::new("./words.json");
 
     let root_controller = RootController::new(&file_manager);
